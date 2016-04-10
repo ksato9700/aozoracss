@@ -1,0 +1,154 @@
+body {
+  margin: 8% 10%;
+}
+
+div,
+h1,
+h2 {
+  line-height: 160%;
+}
+
+ruby {
+  line-height: 100%;
+}
+
+rt {
+  line-height: 50%;
+}
+
+span.notes {
+  font-size: smaller;
+}
+
+img.gaiji {
+  width: 1em;
+  height: 1em;
+  align: top;
+}
+
+.gaiji_list {
+  margin-left: 3em;
+}
+
+.keigakomi {
+  border: solid 1px;
+}
+
+div.keigakomi {
+  padding: {
+    top: 0.5em;
+    bottom: 0.5em;
+    right: 0.5em;
+    left: 1em;
+  }
+}
+
+.futoji {
+  font-weight: bold;
+}
+
+.shatai {
+  font-style: italic;
+}
+
+@mixin senten_style($padding, $bg_path) {
+  font-style: normal;
+  padding: $padding;
+  background: url("css/kentenbosen/" + $bg_path) repeat-x;
+}
+
+@mixin senten_after($bg_path) {
+  @include senten_style(0 0 7px 0, "after/" + $bg_path);
+}
+
+@mixin senten_before($bg_path) {
+  @include senten_style(7px 0 0, "before/" + $bg_path);
+}
+
+.underline_solid  { @include senten_after("sen/bosen.png") }
+.underline_double { @include senten_after("sen/nijyubosen.png") }
+.underline_dotted { @include senten_after("sen/sasen.png") }
+.underline_dashed { @include senten_after("sen/hasen.png") }
+.underline_wave   { @include senten_after("sen/namisen.png") }
+
+.overline_solid  { @include senten_before("sen/bosen.png") }
+.overline_double { @include senten_before("sen/nijyubosen.png") }
+.overline_dotted { @include senten_before("sen/sasen.png") }
+.overline_dashed { @include senten_before("sen/hasen.png") }
+.overline_wave   { @include senten_before("sen/namisen.png") }
+
+.sesame_dot       { @include senten_before("ten/boten.png") }
+.white_sesame_dot { @include senten_before("ten/shirogoma.png") }
+.sesame_dot_after { @include senten_after("ten/boten.png") }
+.white_sesame_dot_after { @include senten_after("ten/shirogoma.png") }
+
+.black_circle  { @include senten_before("ten/maru.png") }
+.white_circle  { @include senten_before("ten/shiromaru.png") }
+
+.black_up-pointing_triangle { @include senten_before("ten/kurosankaku.png") }
+.white_up-pointing_triangle { @include senten_before("ten/shirosankaku.png") }
+
+.bullseye { @include senten_before("ten/nijyumaru.png") }
+.fisheye  { @include senten_before("ten/jyanome.png") }
+.saltire  { @include senten_before("ten/batsu.png") }
+
+.black_circle_after { @include senten_after("ten/maru.png") }
+.white_circle_after { @include senten_after("ten/shiromaru.png") }
+.black_up-pointing_triangle_after { @include senten_after("ten/kurosankaku.png") }
+.white_up-pointing_triangle_after { @include senten_after("ten/shirosankaku.png") }
+.bullseye_after { @include senten_after("ten/nijyumaru.png") }
+.fisheye_after { @include senten_after("ten/jyanome.png") }
+.saltire_after { @include senten_after("ten/batsu.png") }
+
+.subscript,
+.superscript,
+.kaeriten,
+.okurigana {
+  font-size: small;
+}
+
+/* inline objects */
+.dogyo-o-midashi,
+.dogyo-naka-midashi,
+.dogyo-ko-midashi,
+.mado-o-midashi,
+.mado-naka-midashi,
+.mado-ko-midashi {
+  display: inline;
+}
+
+/* headings */
+@mixin heading_style($fontsize) {
+  font-size: $fontsize;
+  margin: 0%;
+}
+
+h3 { @include heading_style(125%) }
+h4 { @include heading_style(large) }
+h5 { @include heading_style(medium) }
+
+.caption {
+  font-size: small;
+  font-weight: bold;
+}
+
+/*
+.complex_ruby {
+  rt.real_ruby:before {
+    content: "（"
+  }
+  rt.real_ruby:after {
+    content: "）"
+  }
+}
+*/
+
+/* dynamic contents using javascript */
+.contents_invisible {
+  display: none;
+}
+.contents_visible {
+  display: block;
+  margin-left: 3em;
+  text-indent: -1em;
+}
