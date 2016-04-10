@@ -65,19 +65,8 @@ div.keigakomi {
 }
 
 /*
-@mixin senten_after($bg_path) {
-  @include senten_style(0 0 7px 0, "after/" + $bg_path);
-}
-
-@mixin senten_before($bg_path) {
-  @include senten_style(7px 0 0, "before/" + $bg_path);
-}
-*/
-
-/*
 text-decoration-style works only on Firefox at this moment
 */
-
 @each $position in underline, overline {
   @each $style in solid, wavy {
     $style_name: $style;
@@ -98,41 +87,29 @@ text-decoration-style works only on Firefox at this moment
   }
 }
 
-@mixin ten($style) {
+@mixin ten($style, $position:over) {
   font-style: normal;
   @each $prefix in -webkit-, -moz-, -ms-, '' {
     #{$prefix}text-emphasis: $style;
+    #{$prefix}text-emphasis-position: $position;
   }
 }
 
-.sesame_dot { @include ten(filled sesame) }
-.white_sesame_dot { @include ten(open sesame) }
-.black_circle { @include ten(filled circle) }
-.white_circle { @include ten(open circle) }
-.black_up-pointing_triangle { @include ten(filled triangle) }
-.white_up-pointing_triangle { @include ten(open triangle) }
-.fisheye  { @include ten(filled double-circle) }
-.bullseye { @include ten(open double-circle) }
-
-/*
-.sesame_dot_after { @include senten_after("ten/boten.png") }
-.white_sesame_dot_after { @include senten_after("ten/shirogoma.png") }
-
-.black_up-pointing_triangle { @include senten_before("ten/kurosankaku.png") }
-.white_up-pointing_triangle { @include senten_before("ten/shirosankaku.png") }
-
-.bullseye { @include senten_before("ten/nijyumaru.png") }
-.fisheye  { @include senten_before("ten/jyanome.png") }
-.saltire  { @include senten_before("ten/batsu.png") }
-
-.black_circle_after { @include senten_after("ten/maru.png") }
-.white_circle_after { @include senten_after("ten/shiromaru.png") }
-.black_up-pointing_triangle_after { @include senten_after("ten/kurosankaku.png") }
-.white_up-pointing_triangle_after { @include senten_after("ten/shirosankaku.png") }
-.bullseye_after { @include senten_after("ten/nijyumaru.png") }
-.fisheye_after { @include senten_after("ten/jyanome.png") }
-.saltire_after { @include senten_after("ten/batsu.png") }
-*/
+@each $position in over, under {
+  $posname: '';
+  @if $position == 'under' {
+    $posname: '_after'
+  }
+  .sesame_dot#{$posname} { @include ten(filled sesame, $position) }
+  .white_sesame_dot#{$posname} { @include ten(open sesame, $position) }
+  .black_circle#{$posname} { @include ten(filled circle, $position) }
+  .white_circle#{$posname} { @include ten(open circle, $position) }
+  .black_up-pointing_triangle#{$posname} { @include ten(filled triangle, $position) }
+  .white_up-pointing_triangle#{$posname} { @include ten(open triangle, $position) }
+  .fisheye#{$posname} { @include ten(filled double-circle, $position) }
+  .bullseye#{$posname} { @include ten(open double-circle, $position) }
+  .saltire#{$posname} { @include ten('\2716', $position) }
+}
 
 .subscript,
 .superscript,
