@@ -51,12 +51,20 @@ div.keigakomi {
   font-style: italic;
 }
 
-@mixin senten_style($padding, $bg_path) {
+@mixin sen_border($position, $style) {
   font-style: normal;
-  padding: $padding;
-  background: url("css/kentenbosen/" + $bg_path) repeat-x;
+  border-#{$position}-style: $style;
 }
 
+@mixin sen_textdeco($position, $style) {
+  font-style: normal;
+  text-decoration: $position;
+  @each $prefix in -webkit-, -moz-, -ms-, '' {
+    #{$prefix}text-decoration-style: $style;
+  }
+}
+
+/*
 @mixin senten_after($bg_path) {
   @include senten_style(0 0 7px 0, "after/" + $bg_path);
 }
@@ -64,26 +72,51 @@ div.keigakomi {
 @mixin senten_before($bg_path) {
   @include senten_style(7px 0 0, "before/" + $bg_path);
 }
+*/
 
-.underline_solid  { @include senten_after("sen/bosen.png") }
-.underline_double { @include senten_after("sen/nijyubosen.png") }
-.underline_dotted { @include senten_after("sen/sasen.png") }
-.underline_dashed { @include senten_after("sen/hasen.png") }
-.underline_wave   { @include senten_after("sen/namisen.png") }
+/*
+text-decoration-style works only on Firefox at this moment
+*/
 
-.overline_solid  { @include senten_before("sen/bosen.png") }
-.overline_double { @include senten_before("sen/nijyubosen.png") }
-.overline_dotted { @include senten_before("sen/sasen.png") }
-.overline_dashed { @include senten_before("sen/hasen.png") }
-.overline_wave   { @include senten_before("sen/namisen.png") }
+@each $position in underline, overline {
+  @each $style in solid, wavy {
+    $style_name: $style;
+    @if $style == 'wavy' {
+      $style_name: wave;
+    }
+    .#{$position}_#{$style_name} { @include sen_textdeco($position, $style) }
+  }
+}
 
-.sesame_dot       { @include senten_before("ten/boten.png") }
-.white_sesame_dot { @include senten_before("ten/shirogoma.png") }
+@each $position in underline, overline {
+  @each $style in double, dotted, dashed {
+    $border_position: 'bottom';
+    @if $position == 'overline' {
+      $border_position: 'top';
+    }
+    .#{$position}_#{$style} { @include sen_border($border_position, $style) }
+  }
+}
+
+@mixin ten($style) {
+  font-style: normal;
+  @each $prefix in -webkit-, -moz-, -ms-, '' {
+    #{$prefix}text-emphasis: $style;
+  }
+}
+
+.sesame_dot { @include ten(filled sesame) }
+.white_sesame_dot { @include ten(open sesame) }
+.black_circle { @include ten(filled circle) }
+.white_circle { @include ten(open circle) }
+.black_up-pointing_triangle { @include ten(filled triangle) }
+.white_up-pointing_triangle { @include ten(open triangle) }
+.fisheye  { @include ten(filled double-circle) }
+.bullseye { @include ten(open double-circle) }
+
+/*
 .sesame_dot_after { @include senten_after("ten/boten.png") }
 .white_sesame_dot_after { @include senten_after("ten/shirogoma.png") }
-
-.black_circle  { @include senten_before("ten/maru.png") }
-.white_circle  { @include senten_before("ten/shiromaru.png") }
 
 .black_up-pointing_triangle { @include senten_before("ten/kurosankaku.png") }
 .white_up-pointing_triangle { @include senten_before("ten/shirosankaku.png") }
@@ -99,6 +132,7 @@ div.keigakomi {
 .bullseye_after { @include senten_after("ten/nijyumaru.png") }
 .fisheye_after { @include senten_after("ten/jyanome.png") }
 .saltire_after { @include senten_after("ten/batsu.png") }
+*/
 
 .subscript,
 .superscript,
