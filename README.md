@@ -16,7 +16,27 @@
  - 縦書き表示の為の追加スタイルシートを用意する
  
 ## 利用方法
+### sassのインストール
+[ここ](http://sass-lang.com/install)を参照していただくのが確実ですが、コマンドラインで入れるのであれば
+```
+$ gem install sass
+```
+あるいは
+```
+$ sudo gem install sass
+```
+でいけるはずです。
+
+### aozora.cssの生成
+Sassがインストール済みであれば、
+```
+$ sass aozora.scss aozora.css
+```
+で生成されます。
 
 ## テスト
 
-## 開発者の皆さんへ
+```
+$ ruby -rwebrick -e 'WEBrick::HTTPServer.new(:DocumentRoot => "./", :Port => 8000).start'
+```
+としてローカルホストにHTTPサーバを立てます。そしてWebブラウザで http://localhost:8000/sample/senten_sample.html にアクセスすれば見られると思います。
